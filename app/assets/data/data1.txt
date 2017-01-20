@@ -1,0 +1,6 @@
+Category,Apartment Households,All Households
+Under 30 Years Old,9540382,2900285
+30 to 44 Years Old,14575260,15906092
+45 to 64 Years Old,13105191,33180350
+65 Years and Older,6349513,22651140
+Total,43570344,74637864
