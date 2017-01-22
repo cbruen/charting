@@ -17,16 +17,16 @@ function formSubmit() {
     }).done(function(res){
       makeChart(res["chart"]);
       console.log(res);
-      $('#test').append("<a class='export' href='' data-id=" + res["chart"]["id"] + "><h4>Download Data in Excel</h4></a>");
-      $('.export').click(function(e) {
-        e.preventDefault();
-        var id = $(this).data("id");
-        $.get('/download/' + id).done(function(res) {
+      $('#test').append("<a class='export' href='" + res["chart"]["datafile"] + "'><h4>Download Data in Excel</h4></a>");
+    //  $('.export').click(function(e) {
+    //    e.preventDefault();
+      //  var id = $(this).data("id");
+      //  $.get('/download/' + id).done(function(res) {
 
-        });
+      //  });
       //  console.log(dataVal.map(function(x) {return x["label"]}));
       //  console.log(dataReal);
-      });
+    //  });
     });
   }
 
@@ -67,7 +67,7 @@ function makeChart(res) {
   });
 
   Chart.defaults.global.defaultFontFamily = 'metric regular';
-  Chart.defaults.global.defaultFontSize = 18;
+  Chart.defaults.global.defaultFontSize = 16;
   var ctx = $('#myChart');
 
   var myChart = new Chart(ctx, {

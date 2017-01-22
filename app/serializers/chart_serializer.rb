@@ -1,3 +1,3 @@
 class ChartSerializer < ActiveModel::Serializer
-  attributes :id, :labels, :states, :real
+  attributes :id, :labels, :states, :real, :datafile
 end

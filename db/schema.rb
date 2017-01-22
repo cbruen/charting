@@ -10,14 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118220132) do
+ActiveRecord::Schema.define(version: 20170122170714) do
 
   create_table "charts", force: :cascade do |t|
     t.text     "states"
     t.text     "labels"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.text     "real"
+    t.string   "datafile_file_name"
+    t.string   "datafile_content_type"
+    t.integer  "datafile_file_size"
+    t.datetime "datafile_updated_at"
   end
 
 end

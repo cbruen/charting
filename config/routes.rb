@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get '/data', to: 'home#data'
   post '/home/upload', to: 'home#upload'
   get '/download/:id', to: 'home#download'
+  resources :charts
 end

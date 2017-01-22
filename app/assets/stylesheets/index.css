@@ -7,7 +7,9 @@ h1 {
 }
 
 #test {
-  width: 50;
-  height: 50;
-  border: 100;
+  margin-top: 60px;
+  height: 500px;
+  width: 500px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
