@@ -9,6 +9,5 @@ h1 {
 #test {
   width: 50;
   height: 50;
-  color: blue;
-  background-color: blue;
+  border: 100;
 }

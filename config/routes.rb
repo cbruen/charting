@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'home#index'
   get '/data', to: 'home#data'
   post '/home/upload', to: 'home#upload'
+  get '/download/:id', to: 'home#download'
 end

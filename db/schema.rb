@@ -20,18 +20,4 @@ ActiveRecord::Schema.define(version: 20170118220132) do
     t.text     "real"
   end
 
-  create_table "states", force: :cascade do |t|
-    t.text     "label"
-    t.text     "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tests", force: :cascade do |t|
-    t.text     "labels"
-    t.text     "states"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end

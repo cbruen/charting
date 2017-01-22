@@ -15,13 +15,31 @@ class HomeController < ApplicationController
     render plain: @param
     end
 
+    def download
+      @chart = Chart.find(params[:id])
+      header = @chart["labels"]
+      header.unshift("")
+      data = @chart["real"]
+      row_labels = @chart["states"].collect {|x| x[0]}
+      row_labels.each_with_index do |y,z|
+        data[z].unshift(y)
+      end
+
+      #p = Axlsx::Package.new
+      #wb = p.workbook
+      #wb.add_worksheet(:data)
+
+    end
+
     def upload
+      binding.pry
       res = CSV.read(params[:file].path)
       labelValue = res[0]
       labelValue.shift
       length = res.length-2
       all = []
       all2 = []
+
       (1..length).each do |y|
         test = []
         test2 = []
@@ -31,20 +49,15 @@ class HomeController < ApplicationController
         all << [first] + test
         all2 << test2
       end
+
       @chart = Chart.new
       @chart.states = all
       @chart.labels = labelValue
       @chart.real = all2
-
+      @chart.save
 
       render json: @chart
     end
 
-    private
-
-    def save_params
-      binding.pry
-      params.require(:state).permit({label: []})
-    end
 
 end

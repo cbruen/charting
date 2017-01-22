@@ -2,11 +2,12 @@ $(document).ready(function() {
   $('form').submit(function(e) {
     e.preventDefault();
     formSubmit();
-}
-);
+});
+});
 
 function formSubmit() {
-    var data = new FormData($(this)[0]);
+    var data = new FormData($('form')[0]);
+
     $.ajax({
         url: '/home/upload',
         data: data,
@@ -15,9 +16,19 @@ function formSubmit() {
         processData: false,
     }).done(function(res){
       makeChart(res["chart"]);
+      console.log(res);
+      $('#test').append("<a class='export' href='' data-id=" + res["chart"]["id"] + "><h4>Download Data in Excel</h4></a>");
+      $('.export').click(function(e) {
+        e.preventDefault();
+        var id = $(this).data("id");
+        $.get('/download/' + id).done(function(res) {
+
+        });
+      //  console.log(dataVal.map(function(x) {return x["label"]}));
+      //  console.log(dataReal);
+      });
     });
-  });
-}
+  }
 
 var colors = [
           'rgba(91, 123, 128, 1)',
@@ -26,10 +37,14 @@ var colors = [
           'rgba(217, 99, 40, 1)'
       ];
 
+var dataVal;
+var dataReal;
+
 function makeChart(res) {
+
   var labelData = res["labels"];
-  var dataVal = [];
-  var dataReal = [];
+  dataVal = [];
+  dataReal = [];
   res["real"].forEach(function(x) {
     dataReal.push(x);
   });
@@ -54,18 +69,20 @@ function makeChart(res) {
   Chart.defaults.global.defaultFontFamily = 'metric regular';
   Chart.defaults.global.defaultFontSize = 18;
   var ctx = $('#myChart');
+
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
+
         labels: labelData,
         datasets: dataVal
 
     },
     options: {
         tooltips: {
+
           callbacks: {
             label: function(item, data) {
-
               return data["datasets"][item.datasetIndex]["label"] + ": " + dataReal[item.datasetIndex][item.index].toLocaleString();
             }
           }
@@ -89,5 +106,11 @@ function makeChart(res) {
 
     }
   });
+ctx.click(function(e) {
+  console.log(e);
+//var activePoints = myChart.getElementsAtEvent(e);
+var activePoints = myChart.getElementAtEvent(e);
+  console.log(activePoints[0]["_index"]);
+});
 
 }
