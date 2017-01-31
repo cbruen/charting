@@ -1,9 +1,13 @@
 $(document).ready(function() {
   $('form').submit(function(e) {
-    //e.preventDefault();
-    //formSubmit();
+    e.preventDefault();
+    formSubmit();
 });
 });
+
+function showThis() {
+
+}
 
 function formSubmit() {
     var data = new FormData($('form')[0]);

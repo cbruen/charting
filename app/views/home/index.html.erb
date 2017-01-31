@@ -1,18 +1,16 @@
-<html>
 
 <head>
 </head>
 
 <body>
 
-  <%= form_tag home_upload_path, multipart: true do %>
-     <%= file_field_tag :file %>
-     <%= submit_tag "Import File" %>
+  <%= form_tag find_page_path do %>
+     <%= collection_select :page_id, Page.all, :id, :name %>
+     <%= submit_tag "Find" %>
   <% end %>
 
-<div id="test2">
-</div>
-<div id="test5">
+
+<div id="test">
 
   <canvas id="myChart" width="100" height="100"></canvas>
 </div>

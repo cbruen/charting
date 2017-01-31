@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   post '/home/upload', to: 'home#upload'
   get '/download/:id', to: 'home#download'
   resources :charts
+  resources :pages, only: [:show]
+  get '/pages/find', to: 'pages#find', as: 'find_page'
 end

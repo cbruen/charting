@@ -5,8 +5,18 @@ require 'csv'
     @chart = Chart.new
   end
 
+  def show
+
+  end
+
+  def index
+    @charts = Chart.all
+    render json: @charts
+  end
+
   def create
     @chart = Chart.create(chart_params)
+
     res = CSV.read(@chart.datafile.path)
     labelValue = res[0]
     labelValue.shift
@@ -28,7 +38,7 @@ require 'csv'
     @chart.labels = labelValue
     @chart.real = all2
     @chart.save
-
+    binding.pry
     render json: @chart
   end
 
