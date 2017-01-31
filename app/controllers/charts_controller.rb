@@ -35,7 +35,7 @@ require 'csv'
   private
 
   def chart_params
-    params.require(:chart).permit(:datafile)
+    params.require(:chart).permit(:datafile, :page_id)
   end
 
 end
