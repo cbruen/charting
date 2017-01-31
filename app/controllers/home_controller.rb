@@ -32,7 +32,7 @@ class HomeController < ApplicationController
     end
 
     def upload
-
+      binding.pry
       res = CSV.read(params[:file].path)
       labelValue = res[0]
       labelValue.shift
@@ -56,7 +56,7 @@ class HomeController < ApplicationController
       @chart.labels = labelValue
       @chart.real = all2
       @chart.save
-      
+
       render json: @chart
     end
 

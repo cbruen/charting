@@ -7,26 +7,18 @@ $(document).ready(function() {
 
 function formSubmit() {
     var data = new FormData($('form')[0]);
-
+    var action = $('form')["0"]["action"];
     $.ajax({
-        url: '/home/upload',
+        url: action,
         data: data,
         type: 'POST',
         contentType: false,
         processData: false,
     }).done(function(res){
-      makeChart(res["chart"]);
-      console.log(res);
+      $('#test').append("<canvas class='myChart' width='100' height='100' data-id='" + res["chart"]["id"] + "'</canvas>");
       $('#test').append("<a class='export' href='" + res["chart"]["datafile"] + "'><h4>Download Data in Excel</h4></a>");
-    //  $('.export').click(function(e) {
-    //    e.preventDefault();
-      //  var id = $(this).data("id");
-      //  $.get('/download/' + id).done(function(res) {
+      makeChart2(res["chart"]);
 
-      //  });
-      //  console.log(dataVal.map(function(x) {return x["label"]}));
-      //  console.log(dataReal);
-    //  });
     });
   }
 
@@ -41,7 +33,6 @@ var dataVal;
 var dataReal;
 
 function makeChart(res) {
-
   var labelData = res["labels"];
   dataVal = [];
   dataReal = [];
@@ -68,7 +59,7 @@ function makeChart(res) {
 
   Chart.defaults.global.defaultFontFamily = 'metric regular';
   Chart.defaults.global.defaultFontSize = 16;
-  var ctx = $('#myChart');
+  var ctx = $('.myChart');
 
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -101,16 +92,56 @@ function makeChart(res) {
             xAxes: [{
               stacked: true
             }]
-
         }
-
     }
   });
-ctx.click(function(e) {
-  console.log(e);
-//var activePoints = myChart.getElementsAtEvent(e);
-var activePoints = myChart.getElementAtEvent(e);
-  console.log(activePoints[0]["_index"]);
-});
+}
 
+
+
+
+function makeChart2(res) {
+
+  var labelData = res["labels"];
+  dataVal = [];
+  dataReal = [];
+  var labels = [];
+  var colors2 = [];
+  res["real"].forEach(function(x) {
+    dataReal.push(x[0]);
+  });
+
+  res["states"].forEach(function(x,y) {
+    dataVal.push(x[1]);
+    labels.push(x[0]);
+    colors2.push(colors[y]);
+  });
+
+    Chart.defaults.global.defaultFontFamily = 'metric regular';
+    Chart.defaults.global.defaultFontSize = 16;
+    var ctx = $('.myChart');
+
+    var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+
+        labels: labels,
+        datasets: [{
+          backgroundColor: colors2,
+          data: dataVal
+        }]
+    },
+    options: {
+      tooltips: {
+
+        callbacks: {
+          label: function(item, data) {
+            console.log(data);
+            console.log(item);
+            return data["labels"][item.index] + ": " + dataReal[item.index].toLocaleString();
+          }
+        }
+      }
+    }
+  });
 }
