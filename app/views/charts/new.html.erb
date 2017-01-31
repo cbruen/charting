@@ -1,5 +1,7 @@
 <%= form_for @chart, url: charts_path, html: { multipart: true } do |f| %>
   <%= f.file_field :datafile %>
+  <br>
+  
   <%= f.submit %>
 <% end %>
 

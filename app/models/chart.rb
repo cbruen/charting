@@ -4,6 +4,8 @@ class Chart < ApplicationRecord
   validates_attachment_content_type :datafile, :content_type =>['text/csv'],
                                                       :message => ', Only CSV files are allowed. '
 
+  belongs_to :page
+
   serialize :labels
   serialize :states
   serialize :real
