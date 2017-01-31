@@ -1,5 +1,7 @@
 class Chart < ApplicationRecord
-  has_attached_file :datafile
+  has_attached_file :datafile,
+    :url => "/system/:class/:attachment/:filename"
+
   validates_attachment_presence :datafile
   validates_attachment_content_type :datafile, :content_type =>['text/csv'],
                                                       :message => ', Only CSV files are allowed. '

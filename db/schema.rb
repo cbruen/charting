@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122170714) do
+ActiveRecord::Schema.define(version: 20170131192000) do
 
   create_table "charts", force: :cascade do |t|
     t.text     "states"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20170122170714) do
     t.string   "datafile_content_type"
     t.integer  "datafile_file_size"
     t.datetime "datafile_updated_at"
+    t.integer  "page_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
